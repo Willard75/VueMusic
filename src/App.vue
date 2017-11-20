@@ -2,15 +2,17 @@
  #app
    img(src='./assets/logo.png')
    h1 PlatziMusic
-   select(v-model="selectedCountry")
-     option(v-for="country in countries" v-bind:value="country.value") {{ country.name }}
-   spinner(v-show="loading")
+   v-select(value='value', v-bind:input='onInput')
+     v-option(value='1') option 1
+     v-option(value='2') option 2
+   spinner(v-show='loading')
    ul
-     artist(v-for="artist in artists" v-bind:artist="artist" v-bind:key="artist.mbid")
+     artist(v-for='artist in artists', v-bind:artist='artist', v-bind:key='artist.mbid')
 </template>
 
 <script>
 import getArtists from './api/index'
+
 export default {
   name: 'app',
   data () {
