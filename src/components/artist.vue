@@ -1,9 +1,7 @@
 <template lang="pug">
-  .row.center-align
-    .col.s12.m6.l4
-      li.artist
-        h2: a(v-bind:href="artist.url" target="_blank") {{ artist.name }}
-        img(v-bind:src="artist.image[2]['#text']")
+  li.artist
+    h2: a(v-bind:href="artist.url" target="_blank") {{ artist.name }}
+    img(v-bind:src="artist.image[2]['#text']")
 </template>
 
 <script>
