@@ -1,6 +1,6 @@
  <template lang="pug">
  #app
-   img(src='https://willard75.github.io/VueMusic/dist/logo.png')
+   img(src='dist/logo.png')
    h1 PlatziMusic
    v-select(value='value', v-bind:input='onInput')
      v-option(value='1') option 1
