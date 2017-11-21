@@ -1,13 +1,13 @@
  <template lang="pug">
  #app
    img(src='dist/logo.png')
-   h1 PlatziMusic
-   v-select(value='value', v-bind:input='onInput')
-     v-option(value='1') option 1
-     v-option(value='2') option 2
-   spinner(v-show='loading')
-   ul
-     artist(v-for='artist in artists', v-bind:artist='artist', v-bind:key='artist.mbid')
+   h1 VueMusic
+   select(v-model="selectedCountry")
+     option(v-for="country in countries" v-bind:value="country.value") {{ country.name }}
+   spinner(v-show="loading")
+   .mask
+    .container(v-for="artist in artists")
+      artist(v-bind:artist="artist" v-bind:key="artist.mbid")
 </template>
 
 <script>
@@ -17,33 +17,33 @@ export default {
   name: 'app',
   data () {
     return {
+      loading: true,
       artists: [],
       countries: [
-        { name:'Argentina', value: 'argentina'},
-        { name:'Colombia', value: 'colombia'},
-        { name:'España', value: 'spain'}
+        { name: 'Argentina', value: 'argentina' },
+        { name: 'Colombia', value: 'colombia' },
+        { name: 'España', value: 'spain' },
       ],
-      selectedCountry: 'argentina',
-      loading: true
+      selectedCountry: 'argentina'
     }
   },
   methods: {
     refreshArtists() {
-     const self = this
-     this.loading = true
-     this.artists = []
-     getArtists(this.selectedCountry)
-       .then(function (artists) {
-         self.loading = false
-         self.artists = artists
-       })
+      const self = this
+      this.artists = []
+      this.loading = true
+      getArtists(this.selectedCountry)
+        .then(function (artists) {
+          self.artists = artists
+          self.loading = false
+        })
     }
   },
-  mounted () {
-    this.refreshArtists
+  mounted() {
+    this.refreshArtists()
   },
   watch: {
-    selectedCountry () {
+    selectedCountry() {
       this.refreshArtists()
     }
   }
@@ -58,6 +58,35 @@ export default {
   text-align center
   color #42b983
   margin-top 60px
+  .container
+      width 200px
+      height 250px
+      background-color white
+      margin-top -10px
+      overflow hidden
+      float left
+      text-align center
+
+  .mask
+    width 1200px
+    overflow hidden
+    position absolute
+    top 55%
+    left 8%
+
+  select
+    border 0 !important
+    -webkit-appearance none
+    -moz-appearance none
+    width 150px
+    height 30px
+    text-indent 0.01px
+    text-overflow ""
+    color #FFF
+    border-radius 0px
+    padding 5px
+    background-color #49e078
+    font-size: 16px
 
 h1, h2
   font-weight normal
